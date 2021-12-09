@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_START = 'FETCH_START';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_ERROR = 'FETCH_ERROR';
+export const FETCH_IMG = 'FETCH_IMG';
 
 export const fetchCatFact = () => {
     return(dispatch) => {
@@ -18,7 +19,18 @@ export const fetchCatFact = () => {
     }
 }
 
-// export const fetch
+export const fetchCatImg = () => {
+    return(dispatch) => {
+        // dispatch({type:FETCH_START})
+        axios.get('https://aws.random.cat/meow')
+        .then(resp => {
+            dispatch({type: FETCH_IMG, payload: resp.data.file })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+}
 
 export const fetchStart = () => {
     return({ type: FETCH_START});
@@ -28,6 +40,10 @@ export const fetchSuccess = (value) => {
     return({type: FETCH_SUCCESS, payload: value})
 }
 
-export const fetchError = (error) => {
-    return({type: FETCH_ERROR, payload: error})
+export const fetchError = () => {
+    return({type: FETCH_ERROR})
+}
+
+export const fetchImg = () => {
+    return({type: FETCH_IMG})
 }
